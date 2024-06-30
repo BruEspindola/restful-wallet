@@ -7,6 +7,9 @@ const environment = {
     host: process.env.POSTGRES_DB_HOST,
     dialect: process.env.POSTGRES_DB_DIALECT,
   },
+  redisHost: process.env.REDIS_HOST,
+  redisPort: process.env.REDIS_PORT,
+  redisPassword: process.env.REDIS_PASSWORD,
 }
 
 module.exports = environment;

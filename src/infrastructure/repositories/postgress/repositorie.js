@@ -1,35 +1,32 @@
-const userSchema = require('../../../domain/schemas/userSchema');
+const userSchema = require("../../../domain/schemas/userSchema");
 
-const create = async(body) => {
-  const result = await userSchema.create(
-    body,
-  )
-  return result.toJSON();
+const create = async (body) => {
+  const user = await userSchema.findOne({ where: { nickname: body.nickname } });
+  if (user) {
+    return user.toJSON();
+  } else {
+    const result = await userSchema.create(body);
+    return result.toJSON();
+  }
 };
 
-const read = async() => {
+const read = async () => {
   const result = await userSchema.findAll();
   return result;
 };
 
-const update = async(id, body) => {
-  const result = await userSchema.update(
-    body,
-    { where: { nickname: id } }
-  )
+const update = async (id, body) => {
+  const result = await userSchema.update(body, { where: { nickname: id } });
   return result;
 };
 
-const disabled = async(id) => {
+const disabled = async (id) => {
   const user = await userSchema.findOne({ where: { nickname: id } });
-  await userSchema.update(
-    { active: false },
-    { where: { nickname: id } }
-  )
+  await userSchema.update({ active: false }, { where: { nickname: id } });
   return user.toJSON();
 };
 
-const findByNickname = async(nickname) => {
+const findByNickname = async (nickname) => {
   const result = await userSchema.findOne({ where: { nickname } });
   return result.toJSON();
 };
@@ -39,5 +36,5 @@ module.exports = {
   read,
   update,
   disabled,
-  findByNickname
+  findByNickname,
 };

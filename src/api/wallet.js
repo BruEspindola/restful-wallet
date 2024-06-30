@@ -5,7 +5,7 @@ const walletService = require('../application/services/wallet');
 
 walletRouter.post(`/${packageJSON.version}/wallet/create`, async (req, res) => {
   const body = req.body;
-   res.send(await walletService.create(body));
+   res.send(await walletService.createWallet(body));
 });
 
 walletRouter.get(`/${packageJSON.version}/wallet`, async (req, res) => {

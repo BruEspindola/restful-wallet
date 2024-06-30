@@ -1,9 +1,11 @@
 const userRepository = require('../../infrastructure/repositories/postgress/repositorie');
 const walletService = require('./wallet');
+const redisService = require('./redis');
 
 const create = async (body) => {
-  const result = await userRepository.create(body);
-  await walletService.create({ key: result.key });
+  const user = await userRepository.create(body);
+  await walletService.createWallet({ key: user.key });
+  await redisService.set(user.nickname, user.key);
   return {create: true};
 };
 

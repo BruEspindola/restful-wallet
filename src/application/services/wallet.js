@@ -1,7 +1,7 @@
 const walletRepository = require('../../infrastructure/repositories/mongodb/repositorie');
-const userService = require('./user');
+const userRepository = require('../../infrastructure/repositories/postgress/repositorie');
 
-const create = async (body) => {
+const createWallet = async (body) => {
   const result = await walletRepository.create(body);
   return result;
 }
@@ -30,13 +30,13 @@ const disabled = async (id) => {
 };
 
 const disabledWalletByUser = async (nickname) => {
-  const user = await userService.findByNickname(nickname);
+  const user = await userRepository.findByNickname(nickname);
   const result = await walletRepository.disabledManyWallets(user.key);
   return result;
 }
 
 module.exports = {
-  create,
+  createWallet,
   read,
   update,
   disabled,

@@ -3,7 +3,6 @@ const packageJSON = require('../../package.json');
 const userRouter = Router();
 const userService = require('../application/services/user');
 
-//crud
 userRouter.post(`/${packageJSON.version}/user/create`, async(req, res) => {
   const body = req.body;
   res.send(await userService.create(body));
