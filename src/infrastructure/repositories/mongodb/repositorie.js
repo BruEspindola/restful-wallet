@@ -22,15 +22,29 @@ const update = async (id, body) => {
   return result;
 };
 
-const deleteWallet = async (id) => {
+const disabledManyWallets = async (id) => {
+  connectMongo();
+  await walletSchema.updateMany({key: id}, {active: false}, {new: true});
+  return {delete: true}
+};
+
+const disabled = async (id) => {
   connectMongo();
   await walletSchema.findOneAndUpdate({key: id}, {active: false}, {new: true});
   return {delete: true}
+};
+
+const findWalletsByUser = async (id) => {
+  connectMongo();
+  const result = await walletSchema.find({key: id});
+  return result;
 }
 
 module.exports = {
   create,
   read,
   update,
-  deleteWallet
+  disabled,
+  findWalletsByUser,
+  disabledManyWallets
 };

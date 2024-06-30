@@ -1,4 +1,5 @@
 const walletRepository = require('../../infrastructure/repositories/mongodb/repositorie');
+const userService = require('./user');
 
 const create = async (body) => {
   const result = await walletRepository.create(body);
@@ -23,8 +24,14 @@ const updateBody = (body) => {
   };
 }
 
-const deleteWallet = async (id) => {
-  const result = await walletRepository.deleteWallet(id);
+const disabled = async (id) => {
+  const result = await walletRepository.disabled(id);
+  return result;
+};
+
+const disabledWalletByUser = async (nickname) => {
+  const user = await userService.findByNickname(nickname);
+  const result = await walletRepository.disabledManyWallets(user.key);
   return result;
 }
 
@@ -32,5 +39,6 @@ module.exports = {
   create,
   read,
   update,
-  deleteWallet
+  disabled,
+  disabledWalletByUser
 };

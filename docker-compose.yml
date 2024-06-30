@@ -22,6 +22,7 @@ services:
     environment:
       POSTGRES_USER: Bruna
       POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: test
     ports:
       - "5432:5432"
 
