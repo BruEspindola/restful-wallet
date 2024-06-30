@@ -1,4 +1,4 @@
-const userRepository = require('../../infrastructure/repositories/postgress/repositorie');
+const userRepository = require('../../infrastructure/repositories/postgress/repository');
 const walletService = require('./wallet');
 const redisService = require('./redis');
 

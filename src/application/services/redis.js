@@ -1,4 +1,4 @@
-const redisRepository = require('../../infrastructure/repositories/redis/repositorie');
+const redisRepository = require('../../infrastructure/repositories/redis/repository');
 
 const set = async(key, value) => {
   await redisRepository.set(key, value);

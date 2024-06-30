@@ -1,5 +1,5 @@
-const walletRepository = require('../../infrastructure/repositories/mongodb/repositorie');
-const userRepository = require('../../infrastructure/repositories/postgress/repositorie');
+const walletRepository = require('../../infrastructure/repositories/mongodb/repository');
+const userRepository = require('../../infrastructure/repositories/postgress/repository');
 
 const createWallet = async (body) => {
   const result = await walletRepository.create(body);
