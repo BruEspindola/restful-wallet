@@ -1,5 +1,5 @@
 const walletRepository = require('../../infrastructure/repositories/mongodb/repository');
-const userRepository = require('../../infrastructure/repositories/postgress/repository');
+const redisService = require('../../infrastructure/repositories/redis/repository');
 
 const createWallet = async (body) => {
   const result = await walletRepository.create(body);
@@ -30,8 +30,8 @@ const disabled = async (id) => {
 };
 
 const disabledWalletByUser = async (nickname) => {
-  const user = await userRepository.findByNickname(nickname);
-  const result = await walletRepository.disabledManyWallets(user.key);
+  const user = await redisService.get(nickname);
+  const result = await walletRepository.disabledManyWallets(user);
   return result;
 }
 
