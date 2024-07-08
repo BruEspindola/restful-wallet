@@ -1,5 +1,6 @@
 const walletRepository = require('../../infrastructure/repositories/mongodb/repository');
 const redisService = require('../../infrastructure/repositories/redis/repository');
+const kafkaService = require('../../infrastructure/repositories/kafka/repository');
 
 const createWallet = async (body) => {
   const result = await walletRepository.create(body);
@@ -12,15 +13,15 @@ const read = async () => {
 }
 
 const update = async (id, body) => {
-  body = updateBody(body);
-  const result = await walletRepository.update(id, body);
-  return result;
+  body = updateBody(body, id);
+  await kafkaService.sendMessage(JSON.stringify(body), 'wallet');
+  return { message: "We'll process your request" };
 };
 
-const updateBody = (body) => {
+const updateBody = (body, id) => {
   return {
     ...body,
-    updatedAt: new Date()
+    id
   };
 }
 

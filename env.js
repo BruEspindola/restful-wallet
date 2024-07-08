@@ -10,6 +10,8 @@ const environment = {
   redisHost: process.env.REDIS_HOST,
   redisPort: process.env.REDIS_PORT,
   redisPassword: process.env.REDIS_PASSWORD,
+  kafkaBrokers: process.env.KAFKA_BROKERS,
+  kafkaClientId: process.env.KAFKA_CLIENT_ID,
 }
 
 module.exports = environment;
